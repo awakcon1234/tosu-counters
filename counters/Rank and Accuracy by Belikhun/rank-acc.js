@@ -81,6 +81,7 @@ const RankAndAccuracyPanel = {
 
 		app.subscribe("play.rank.current", () => this.updateRank());
 		app.subscribe("play.accuracy", () => this.updateAccuracy());
+		app.subscribe("play.hits", () => this.updateAccuracy());
 		app.subscribe("state.name", () => this.updateRank());
 
 		let prevTrend = 0;
