@@ -172,7 +172,7 @@ const UnstableRatePanel = {
 		}, "precise");
 
 		app.subscribe("play.playerName", () => this.updateDisplayState());
-		app.subscribe("resultsScreen.playerName", () => this.updateDisplayState());
+		app.subscribe("state.name", () => this.updateDisplayState());
 
 		if (this.transparent)
 			this.container.classList.add("do-transparent");
@@ -187,7 +187,7 @@ const UnstableRatePanel = {
 
 	updateDisplayState() {
 		const isPlaying = app.get("play.playerName", "").length > 0;
-		const isViewingResult = app.get("resultsScreen.playerName", "").length > 0;
+		const isViewingResult = (app.get("state.name", "") === "resultScreen");
 
 		this.container.classList.toggle("showing-result", isViewingResult);
 		const shouldDisplay = (this.displayOnResultScreen)

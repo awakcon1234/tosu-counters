@@ -255,7 +255,7 @@ const PPPanel = {
 		}
 
 		app.subscribe("play.playerName", () => this.updateDisplayState());
-		app.subscribe("resultsScreen.playerName", () => this.updateDisplayState());
+		app.subscribe("state.name", () => this.updateDisplayState());
 		app.subscribe("resultsScreen.pp.current", () => this.updatePPValue());
 
 		this.color = "#4db8ff";
@@ -276,7 +276,10 @@ const PPPanel = {
 
 	updateDisplayState() {
 		const isPlaying = app.get("play.playerName", "").length > 0;
-		const isViewingResult = app.get("resultsScreen.playerName", "").length > 0;
+		const isViewingResult = (app.get("state.name", "") === "resultScreen");
+
+		if (isPlaying && !this.isPlaying)
+			this.reset();
 
 		this.container.classList.toggle("showing-result", isViewingResult);
 		this.isPlaying = isPlaying;
@@ -516,6 +519,7 @@ const PPPanel = {
 	},
 
 	reset() {
+		console.trace("resetting pp graph");
 		this.points = [[0, 0]];
 		this.currentTimePoint = 0;
 		this.lastTimePoint = 0;
@@ -532,7 +536,7 @@ const PPPanel = {
 		if (this.timeTo <= 0 || !this.isPlaying)
 			return;
 
-		if ((this.currentTime < this.timeFrom || this.currentTime < this.renderedTime) && this.lastTimePoint > 0)
+		if (this.renderedTime - this.currentTime > 1000)
 			this.reset();
 
 		// == CALCULATE ==

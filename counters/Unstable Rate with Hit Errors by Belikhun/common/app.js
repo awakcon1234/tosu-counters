@@ -194,15 +194,23 @@ const app = {
 
 	doUpdateFilters() {
 		if (this.filtersChanged.common) {
-			this.client.sockets["/websocket/v2"].send(`applyFilters:${JSON.stringify(this.filters.common)}`);
-			this.filtersChanged.common = false;
-			console.debug("pushed new common filters to server");
+			if (this.client.sockets["/websocket/v2"].readyState === WebSocket.OPEN) {
+				this.client.sockets["/websocket/v2"].send(`applyFilters:${JSON.stringify(this.filters.common)}`);
+				this.filtersChanged.common = false;
+				console.debug("pushed new common filters to server");
+			} else {
+				console.debug("common socket not ready");
+			}
 		}
 
 		if (this.filtersChanged.precise) {
-			this.client.sockets["/websocket/v2/precise"].send(`applyFilters:${JSON.stringify(this.filters.precise)}`);
-			this.filtersChanged.precise = false;
-			console.debug("pushed new precise filters to server");
+			if (this.client.sockets["/websocket/v2/precise"].readyState === WebSocket.OPEN) {
+				this.client.sockets["/websocket/v2/precise"].send(`applyFilters:${JSON.stringify(this.filters.precise)}`);
+				this.filtersChanged.precise = false;
+				console.debug("pushed new precise filters to server");
+			} else {
+				console.debug("precise socket not ready");
+			}
 		}
 
 		return this;
