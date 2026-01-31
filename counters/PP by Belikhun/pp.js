@@ -278,8 +278,10 @@ const PPPanel = {
 		const isPlaying = app.get("play.playerName", "").length > 0;
 		const isViewingResult = (app.get("state.name", "") === "resultScreen");
 
-		if (isPlaying && !this.isPlaying)
+		if (isPlaying && !this.isPlaying) {
 			this.reset();
+			this.render();
+		}
 
 		this.container.classList.toggle("showing-result", isViewingResult);
 		this.isPlaying = isPlaying;
@@ -530,6 +532,7 @@ const PPPanel = {
 		this.ppTrend.clear();
 		this.ppTrendNumber.value = 0;
 		this.ppValue.value = 0;
+		app.set("play.pp", { current: 0, fc: 0, maxAchievable: 0, maxAchieved: 0 });
 	},
 
 	render() {
@@ -542,8 +545,10 @@ const PPPanel = {
 		// == CALCULATE ==
 
 		const chartRenderHeight = this.chartHeight - this.CHART_PAD_VERT * 2;
+		const { current, fc, maxAchievable, maxAchieved } = (osuHasHit())
+			? app.get("play.pp", { current: 0, fc: 0, maxAchievable: 0, maxAchieved: 0 })
+			: { current: 0, fc: 0, maxAchievable: 0, maxAchieved: 0 };
 
-		const { current, fc, maxAchievable, maxAchieved } = app.get("play.pp", { current: 0, fc: 0, maxAchievable: 0, maxAchieved: 0 });
 		const maxPP = this.accuracy[100] || 0;
 		const valuePoint = scaleValue(current, [0, maxPP], [0, 1]);
 		const predictPoint = scaleValue((maxAchievable > 0) ? maxAchievable : maxPP, [0, maxPP], [0, 1]);

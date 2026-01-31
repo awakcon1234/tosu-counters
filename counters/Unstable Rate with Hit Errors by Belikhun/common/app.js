@@ -111,6 +111,38 @@ const app = {
 	},
 
 	/**
+	 * Set value by key
+	 * 
+	 * @param	{string}					key
+	 * @param	{any}						value
+	 * @param	{"common" | "precise"}		[channel]
+	 * @param	{"current" | "previous"}	[store]
+	 * @param	{boolean}					[dispatch]
+	 */
+	set(key, value, channel = "common", store = "current", dispatch = true) {
+		const path = key.split(".");
+		let data = this.data[channel][store];
+
+		for (let i = 0; i < path.length; i++) {
+			const token = path[i];
+
+			if (i == path.length - 1) {
+				data[token] = value;
+			} else {
+				if (typeof data[token] == "undefined" || typeof data[token] != "object")
+					data[token] = {};
+
+				data = data[token];
+			}
+		}
+
+		if (dispatch)
+			this.dispatch(this.data[channel][store], channel);
+
+		return this;
+	},
+
+	/**
 	 * Subscribe for value change of the specified value key
 	 * 
 	 * @param	{string}				key

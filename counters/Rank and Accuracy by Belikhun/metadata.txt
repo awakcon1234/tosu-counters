@@ -4,4 +4,4 @@ Version: 1.1.2
 Author: Belikhun
 CompatibleWith: tosu
 Resolution: 380x152
-authorLinks: https://github.com/Belikhun/osu-counters
+authorLinks: https://github.com/Belikhun
