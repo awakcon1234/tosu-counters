@@ -1,0 +1,76 @@
+[
+	{
+		"uniqueID": "baseSize",
+		"type": "number",
+		"title": "Base Size (px)",
+		"description": "Use this value to make the UI bigger or smaller.",
+		"options": [],
+		"value": 16
+	},
+	{
+		"uniqueID": "background",
+		"type": "color",
+		"title": "Override Status Background Color",
+		"description": "Override the background color of status chip. Set to White to disable.",
+		"options": [],
+		"value": "#ffffff"
+	},
+	{
+		"uniqueID": "hideDuringPlay",
+		"type": "checkbox",
+		"title": "Hide During Play",
+		"description": "Hide the profile card when playing.",
+		"options": [],
+		"value": false
+	},
+	{
+		"uniqueID": "hideDuringResult",
+		"type": "checkbox",
+		"title": "Hide During Result Screen",
+		"description": "Hide the profile card during result screen.",
+		"options": [],
+		"value": false
+	},
+	{
+		"uniqueID": "overrideUserId",
+		"type": "number",
+		"title": "Override User ID",
+		"description": "Override the user displayed in the profile card to a different user.",
+		"options": [],
+		"value": -1
+	},
+	{
+		"uniqueID": "overrideTitle",
+		"type": "text",
+		"title": "Override User Title",
+		"description": "Override the user's title displayed between username and badges",
+		"options": [],
+		"value": ""
+	},
+	{
+		"uniqueID": "overrideUserColor",
+		"type": "color",
+		"title": "Override User Color",
+		"description": "Override the background gradient color behind the avatar. Set to Black to disable.",
+		"options": [],
+		"value": "#000000"
+	},
+	{
+		"uniqueID": "overrideRank",
+		"type": "options",
+		"title": "Override Rank Color",
+		"description": "Override the gradient color for global rank number.",
+		"options": [
+			"default",
+			"iron",
+			"bronze",
+			"silver",
+			"gold",
+			"platinum",
+			"rhodium",
+			"radiant",
+			"lustrous"
+		],
+		"value": "default"
+	}
+]

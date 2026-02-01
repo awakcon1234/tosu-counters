@@ -1,0 +1,7 @@
+Usecase: ingame,obs-overlay
+Name: User Card
+Version: 1.0.0
+Author: Belikhun
+CompatibleWith: tosu
+Resolution: 420x108
+authorLinks: https://github.com/Belikhun
