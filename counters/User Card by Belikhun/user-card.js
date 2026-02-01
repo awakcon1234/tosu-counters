@@ -532,32 +532,34 @@ const UserCardPanel = {
 				const response = await this.tryFetch(url);
 				const user = response.users[0];
 
-				const data = {
-					id: user.id,
-					username: user.username,
-					avatar: user.avatar_url,
-					country: user.country,
-					cover: user.cover.url,
-					isSupporter: user.is_supporter,
-					profileColor: user.profile_colour,
-					team: user.team,
-					groups: user.groups.map((g) => ({
-						id: g.id,
-						name: g.name,
-						identifier: g.identifier,
-						color: g.colour,
-						playmodes: g.playmodes
-					})),
-					expire: Date.now() + (60 * 60 * 1000),
-				};
-	
-				localStorage.setItem(`user-data-${userId}`, JSON.stringify(data));
-				return data;
+				if (user) {
+					const data = {
+						id: user.id,
+						username: user.username,
+						avatar: user.avatar_url,
+						country: user.country,
+						cover: user.cover.url,
+						isSupporter: user.is_supporter,
+						profileColor: user.profile_colour,
+						team: user.team,
+						groups: user.groups.map((g) => ({
+							id: g.id,
+							name: g.name,
+							identifier: g.identifier,
+							color: g.colour,
+							playmodes: g.playmodes
+						})),
+						expire: Date.now() + (4 * 60 * 60 * 1000),
+					};
+		
+					localStorage.setItem(`user-data-${userId}`, JSON.stringify(data));
+					return data;
+				}
 			} catch (error) {
 				console.error("Failed to fetch user data:", error);
 	
 				if (cached)
-					return cached;
+					return JSON.parse(cached);
 			} finally {
 				this.loading = false;
 			}
@@ -566,7 +568,9 @@ const UserCardPanel = {
 		return {
 			id: userId,
 			username: app.get("profile.name"),
-			avatar: `https://a.ppy.sh/${userId}`,
+			avatar: userId > 0
+				? `https://a.ppy.sh/${userId}`
+				: "./images/avatar-guest.png",
 			country: {
 				code: app.get("profile.countryCode.name"),
 				name: app.get("profile.countryCode.name"),
@@ -580,12 +584,15 @@ const UserCardPanel = {
 	},
 
 	flagUrl(code) {
+		if (!code)
+			return `./flags/fallback.png`;
+
 		const baseFileName = code
 			.split('')
 			.map((c) => (c.charCodeAt(0) + 127397).toString(16))
 			.join('-');
 
-		return `https://osu.ppy.sh/assets/images/flags/${baseFileName}.svg`;
+		return `./flags/${baseFileName}.svg`;
 	},
 
 	async tryFetch(url, {
