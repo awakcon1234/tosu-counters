@@ -34,21 +34,3 @@
     font-style: normal;
     font-display: swap;
 }
-
-@font-face {
-    font-family: "Torus Pro";
-    src: local("Torus Pro Light"), local("TorusPro-Light"),
-        url("TorusPro-Light.woff2") format("woff2");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Torus Pro";
-    src: local("Torus Pro Thin"), local("TorusPro-Thin"),
-        url("TorusPro-Thin.woff2") format("woff2");
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
