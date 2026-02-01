@@ -43,7 +43,7 @@
 		"uniqueID": "overrideTitle",
 		"type": "text",
 		"title": "Override User Title",
-		"description": "Override the user's title displayed between username and badges",
+		"description": "Override the user's title displayed between username and badges. Leave empty to disable.",
 		"options": [],
 		"value": ""
 	},
@@ -54,6 +54,14 @@
 		"description": "Override the background gradient color behind the avatar. Set to Black to disable.",
 		"options": [],
 		"value": "#000000"
+	},
+	{
+		"uniqueID": "overrideCoverImage",
+		"type": "text",
+		"title": "Override Cover Image",
+		"description": "Override the user's cover image displayed in the profile card. Leave empty to disable.",
+		"options": [],
+		"value": ""
 	},
 	{
 		"uniqueID": "overrideRank",

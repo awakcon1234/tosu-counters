@@ -54,6 +54,7 @@ const UserCardPanel = {
 	overrideTitle: "",
 	overrideUserColor: "#000000",
 	overrideUserId: -1,
+	overrideCoverImage: "",
 	overrideRank: "default",
 
 	init({} = {}) {
@@ -242,6 +243,7 @@ const UserCardPanel = {
 		overrideTitle = "",
 		overrideUserColor = "#000000",
 		overrideUserId = -1,
+		overrideCoverImage = "",
 		overrideRank = "default"
 	} = {}) {
 		if (background !== "#ffffff") {
@@ -258,6 +260,7 @@ const UserCardPanel = {
 		this.overrideTitle = overrideTitle;
 		this.overrideUserColor = overrideUserColor;
 		this.overrideUserId = overrideUserId;
+		this.overrideCoverImage = overrideCoverImage;
 		this.overrideRank = overrideRank;
 
 		this.show(this.userId);
@@ -280,9 +283,17 @@ const UserCardPanel = {
 		const user = await this.fetchUserData(userId);
 
 		this.container.dataset.userId = user.id;
-		this.container.card.background.style.backgroundImage = `url(${user.cover || "./images/default-cover.png"})`;
 		this.container.card.info.avatar.src = user.avatar;
 		this.container.card.info.meta.username.textContent = user.username;
+
+		if (this.overrideCoverImage && this.overrideCoverImage.length > 0) {
+			this.container.card.background.style.backgroundImage = `url(${this.overrideCoverImage})`;
+		} else if (user.cover) {
+			this.container.card.background.style.backgroundImage = `url(${user.cover})`;
+		} else {
+			this.container.card.background.style.backgroundImage = `url(./images/default-cover.png)`;
+		}
+
 		let hasRightSide = false;
 
 		if (this.overrideUserColor && this.overrideUserColor !== "#000000") {
