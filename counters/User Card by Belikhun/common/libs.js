@@ -9,38 +9,10 @@ function emptyNode(node) {
 		node.firstChild.remove();
 }
 
-function time(date) {
-	if (date instanceof Date)
-		return date.getTime() / 1000;
-
-	return Date.now() / 1000;
-}
-
-function round(number, to = 2) {
-	const d = Math.pow(10, to);
-	return Math.round(number * d) / d;
-}
-
 function delayAsync(time) {
 	return new Promise((resolve, reject) => {
 		setTimeout(() => resolve(), time);
 	});
-}
-
-function nextFrameAsync() {
-	return new Promise((resolve, reject) => {
-		requestAnimationFrame(() => resolve());
-	});
-}
-
-/**
- * Verify if a value is an element.
- *
- * @param   {HTMLElement}   element
- * @returns {boolean}
- */
-function isElement(element) {
-	return (element && typeof element === "object" && element.tagName);
 }
 
 /**
