@@ -603,7 +603,7 @@ const UserCardPanel = {
 			.map((c) => (c.charCodeAt(0) + 127397).toString(16))
 			.join('-');
 
-		return `./flags/${baseFileName}.svg`;
+		return `https://osu.ppy.sh/assets/images/flags/${baseFileName}.svg`;
 	},
 
 	async tryFetch(url, {
