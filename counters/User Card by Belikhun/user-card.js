@@ -38,6 +38,7 @@ const UserCardPanel = {
 	hasStatus: false,
 	statusDisplaying: false,
 	statusCycleTask: null,
+	statusWaitTask: null,
 
 	/** @type {SmoothValue} */
 	rankValue: undefined,
@@ -443,20 +444,26 @@ const UserCardPanel = {
 		if (this.statusDisplaying)
 			return;
 
-		this.container.details.info.classList.remove("show-items");
-		await delayAsync(600);
-		this.container.details.info.classList.add("show-status");
 		this.statusDisplaying = true;
+		clearTimeout(this.statusWaitTask);
+		this.container.details.info.classList.remove("show-items")
+
+		this.statusWaitTask = setTimeout(() => {
+			this.container.details.info.classList.add("show-status");
+		}, 600);
 	},
 
 	async hideStatus() {
 		if (!this.statusDisplaying)
 			return;
 
-		this.container.details.info.classList.remove("show-status");
-		await delayAsync(600);
-		this.container.details.info.classList.add("show-items");
 		this.statusDisplaying = false;
+		clearTimeout(this.statusWaitTask);
+		this.container.details.info.classList.remove("show-status");
+
+		this.statusWaitTask = setTimeout(() => {
+			this.container.details.info.classList.add("show-items");
+		}, 600);
 	},
 
 	formatNumber(value) {
