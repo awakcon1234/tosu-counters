@@ -560,7 +560,7 @@ const UserCardPanel = {
 							color: g.colour,
 							playmodes: g.playmodes
 						})),
-						expire: Date.now() + (4 * 60 * 60 * 1000),
+						expire: Date.now() + (5 * 60 * 1000),
 					};
 		
 					localStorage.setItem(`user-data-${userId}`, JSON.stringify(data));
